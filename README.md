@@ -75,7 +75,12 @@ extend ActiveHash::Associations::ActiveRecordExtensions
 belongs_to :prefecture  
 belongs_to :order_history  
 
-## Categories (ActiveHash)
+# ER図
+
+![ER図](public/ER図.png)
+
+# ActiveHash
+## Categories
 |Column|Type|
 |------|----|
 | id | integer |
@@ -85,7 +90,7 @@ belongs_to :order_history
 include ActiveHash::Associations  
 has_many :items
 
-## SalesStatuses (ActiveHash)
+## SalesStatuses
 |Column|Type|
 |------|----|
 | id | integer |
@@ -95,7 +100,7 @@ has_many :items
 include ActiveHash::Associations  
 has_many :items  
 
-## ShippingFeeStatuses (ActiveHash)
+## ShippingFeeStatuses
 |Column|Type|
 |------|----|
 | id | integer |
@@ -105,7 +110,7 @@ has_many :items
 include ActiveHash::Associations  
 has_many :items  
 
-## ScheduledDeliveries (ActiveHash)
+## ScheduledDeliveries
 |Column|Type|
 |------|----|
 | id | integer |
@@ -115,7 +120,7 @@ has_many :items
 include ActiveHash::Associations  
 has_many :items  
 
-## Prefectures (ActiveHash)
+## Prefectures
 |Column|Type|
 |------|----|
 | id | integer |
@@ -125,7 +130,3 @@ has_many :items
 include ActiveHash::Associations  
 has_many :items  
 has_many :order_addresses
-
-# ER図
-
-![ER図](public/ER図.png)
