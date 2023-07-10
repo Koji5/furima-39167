@@ -49,7 +49,6 @@ has_many :order_histories
 
 |Column|Type|Options|
 |------|----|-------|
-| payment_price | integer | null: false |
 | item | references | null: false, foreign_key: true |
 | user | references | null: false, foreign_key: true |
 
