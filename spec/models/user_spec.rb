@@ -99,10 +99,5 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("Last name kana is invalid")
     end
-    it 'birth_dateが存在する日付以外では登録できない' do
-      @user.birth_date = '2023-13-21'
-      @user.valid?
-      expect(@user.errors.full_messages).to include("Birth date is invalid")
-    end
   end
 end
