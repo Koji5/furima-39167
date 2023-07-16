@@ -10,6 +10,7 @@ class User < ApplicationRecord
   validates :first_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/, allow_blank: true }
   validates :last_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/, allow_blank: true }
   validates :birth_date, presence: true
+  validates :password, format: { with: /\A(?=.*?[a-zA-Z])(?=.*?\d)[a-zA-Z\d]+\z/, allow_blank: true }
 
   # 以下のようにカスタムのバリデーションメソッドを使用した書き方もできる。
   # テストコードの書き換えが必要
