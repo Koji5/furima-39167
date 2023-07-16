@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :user do
     nickname              {Faker::Name.name}
     email                 {Faker::Internet.free_email}
-    password              {'Pass01'}
+    password              {Faker::Internet.password(min_length: 5) + Faker::Number.number(digits: 1).to_s}
 # Rubyのバージョンが2.7以上で、Fakerのバージョンが2.17.0以上の場合、以下が使用できる。
 #   password              {Faker::Alphanumeric.alpha_number(6)}
     password_confirmation {password}
