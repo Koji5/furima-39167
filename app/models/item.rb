@@ -11,7 +11,7 @@ class Item < ApplicationRecord
   validates :image, presence: true
   validates :name, presence: true
   validates :info, presence: true
-  validates :price, presence: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, only_integer: true }
+  validates :price, presence: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, only_integer: true, allow_blank: true }
 
   #選択が「---」の時は保存できないようにする
   validates :category_id, numericality: { other_than: 1, message: "can't be blank" }
