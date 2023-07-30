@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, only: :index
+  before_action :authenticate_user!, only:[:index, :create]
   before_action :set_item, only:[:index, :create]
   before_action :move_to_index, only: :index
 
@@ -10,6 +10,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     if @order.valid?
+      pay_item
       @order.save
       redirect_to root_path
     else
@@ -20,7 +21,19 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:postal_code, :prefecture_id, :city, :address, :building, :price).merge(item_id: @item.id, user_id: current_user.id)
+    params.require(:order).permit(
+      :postal_code, 
+      :prefecture_id, 
+      :city, 
+      :address, 
+      :building,
+      :phone_number
+    ).merge(
+      price: @item.price, 
+      item_id: @item.id, 
+      user_id: current_user.id, 
+      token: params[:token]
+    )
   end
 
   def set_item
@@ -33,4 +46,14 @@ class OrdersController < ApplicationController
     end
     # TODO:売却済み商品かどうかの条件分岐
   end
+
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: order_params[:price],
+      card: order_params[:token],
+      currency:'jpy'
+    )
+ end
+
 end
