@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.describe Order, type: :model do
   describe '商品購入情報の保存' do
     before do
-      @order = FactoryBot.build(:order)
+      user = FactoryBot.create(:user)
+      item = FactoryBot.create(:item)
+      @order = FactoryBot.build(:order, user_id: user.id, item_id: item.id)
     end
 
     context '商品が購入できる場合' do
@@ -57,17 +59,27 @@ RSpec.describe Order, type: :model do
         @order.valid?
         expect(@order.errors.full_messages).to include("Phone number can't be blank")
       end
-      it "電話番号が10桁以上11桁以内の半角数値以外では購入できないこと" do
-        @order.phone_number = '12a45'
+      it "9桁以下では購入できないこと" do
+        @order.phone_number = '123456789'
         @order.valid?
         expect(@order.errors.full_messages).to include("Phone number is invalid.")
       end
-      it 'itemが紐付いていないと保存できない' do
+      it "12桁以上では購入できないこと" do
+        @order.phone_number = '123456789012'
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Phone number is invalid.")
+      end
+      it "半角数字以外が含まれている場合、購入できないこと" do
+        @order.phone_number = '12a4567890'
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Phone number is invalid.")
+      end
+      it 'itemが紐付いていないと購入できないこと' do
         @order.item_id = nil
         @order.valid?
         expect(@order.errors.full_messages).to include("Item can't be blank")
       end
-      it 'userが紐付いていないと保存できない' do
+      it 'userが紐付いていないと購入できないこと' do
         @order.user_id = nil
         @order.valid?
         expect(@order.errors.full_messages).to include("User can't be blank")
