@@ -60,9 +60,8 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    if current_user.id != @item.user_id
+    if current_user.id != @item.user_id || @item.sold_out?
       redirect_to root_path
     end
-    # TODO:売却済み商品かどうかの条件分岐
   end
 end

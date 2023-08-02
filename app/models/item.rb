@@ -7,7 +7,8 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   has_one_attached :image
   belongs_to :user
-
+  has_one :order_history
+  
   validates :image, presence: true
   validates :name, presence: true
   validates :info, presence: true
@@ -19,5 +20,10 @@ class Item < ApplicationRecord
   validates :shipping_fee_status_id, numericality: { greater_than_or_equal_to: 2, less_than_or_equal_to: 3, only_integer: true, message: "can't be blank" }
   validates :scheduled_delivery_id, numericality: { greater_than_or_equal_to: 2, less_than_or_equal_to: 4, only_integer: true, message: "can't be blank" }
   validates :prefecture_id, numericality: {greater_than_or_equal_to: 2, less_than_or_equal_to: 48, only_integer: true, message: "can't be blank" }
+
+  def sold_out?
+    history = OrderHistory.find_by(item_id: self.id)
+    history.present?
+  end
 
 end
