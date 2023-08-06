@@ -175,7 +175,6 @@ GEM
       racc
     payjp (0.0.10)
       rest-client (~> 2.0)
-    pg (1.5.3)
     public_suffix (5.0.3)
     puma (3.12.6)
     racc (1.7.1)
@@ -343,7 +342,6 @@ DEPENDENCIES
   mini_magick
   mysql2 (>= 0.4.4)
   payjp
-  pg
   puma (~> 3.11)
   rails (~> 6.0.0)
   rspec-rails (~> 4.0.0)
